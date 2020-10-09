@@ -31,7 +31,7 @@ class Myhospital extends React.Component {
     //  axios.get('/v1/admin/hospitals/'+`?hospitalcode=${this.props.match.params.id}&doctorName=Sanjeev`,
     axios
       .get(
-        "http://localhost:4300/v1/admin/hospitals/" +
+        "https://stage.mconnecthealth.com/v1/admin/hospitals/" +
           this.props.match.params.id,
         {
           headers: {

@@ -103,7 +103,7 @@ class Addhospital extends React.Component {
       };
       console.log(payload);
       axios({
-        url: "http://localhost:4300/v1/admin/hospitals/add",
+        url: "https://stage.mconnecthealth.com/v1/admin/hospitals/add",
         method: "POST",
         data: payload,
         headers: {

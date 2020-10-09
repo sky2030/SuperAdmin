@@ -18,6 +18,7 @@ class Alldoctors extends React.Component {
     this.state = {
       loggedIn,
       posts: [],
+      alldoctors: [],
       hospitals: [],
       hospitalcode: "",
     };
@@ -39,19 +40,36 @@ class Alldoctors extends React.Component {
     this.setState({
       hospitalcode: e.target.value,
     });
+
+    console.log("this is hospital code : ", e.target.value);
+    let dup_post = [...this.state.alldoctors];
+    if (e.target.value == "AllDoctors") {
+      this.setState({
+        posts: dup_post,
+      });
+      return;
+    }
+
+    console.log(dup_post);
+    dup_post = dup_post.filter((item) => {
+      console.log("Hospital code : ", item.hospitalcode);
+      if (item.hospitalcode == e.target.value) {
+        return item;
+      }
+    });
+
+    this.setState({
+      posts: dup_post,
+    });
+    // this.getDoctors();
+    // setTimeout(() => {
+    //   this.getDoctors();
+    // }, 1000);
   };
 
-  componentDidMount = () => {
-    // console.log(`this is hospital code ${this.state.hospitalcode}`);
-    this.getHospital();
-    this.getDoctors();
-  };
-  // componentWillUpdate = () => {
-  //   this.getDoctors();
-  // };
-  getDoctors = () => {
+  fetchAll = () => {
     //console.log(`this is hospital code ${this.state.hospitalcode}`);
-    let URL = `http://localhost:4300/v1/admin/doctors?hospitalcode=${this.state.hospitalcode}`;
+    let URL = `https://stage.mconnecthealth.com/v1/admin/doctors`;
     console.log(URL);
     axios
       .get(URL, {
@@ -63,6 +81,7 @@ class Alldoctors extends React.Component {
         console.log(response);
         const data = response.data.data;
         this.setState({ posts: data });
+        this.setState({ alldoctors: data });
         console.log("Data has been received!!");
       })
       .catch(() => {
@@ -70,9 +89,39 @@ class Alldoctors extends React.Component {
       });
   };
 
+  componentDidMount = () => {
+    // console.log(`this is hospital code ${this.state.hospitalcode}`);
+    this.getHospital();
+    this.fetchAll();
+    // this.getDoctors();
+  };
+  // componentWillUpdate = () => {
+  //   this.getDoctors();
+  // };
+  // getDoctors = () => {
+  //   //console.log(`this is hospital code ${this.state.hospitalcode}`);
+  //   let URL = `https://stage.mconnecthealth.com/v1/admin/doctors?hospitalcode=${this.state.hospitalcode}`;
+  //   console.log(URL);
+  //   axios
+  //     .get(URL, {
+  //       headers: {
+  //         Authorization: localStorage.getItem("token"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       const data = response.data.data;
+  //       this.setState({ posts: data });
+  //       console.log("Data has been received!!");
+  //     })
+  //     .catch(() => {
+  //       alert("Error retrieving data!!");
+  //     });
+  // };
+
   getHospital = () => {
     axios
-      .get("http://localhost:4300/v1/admin/hospitals/", {
+      .get("https://stage.mconnecthealth.com/v1/admin/hospitals/", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -87,10 +136,21 @@ class Alldoctors extends React.Component {
         alert("Error retrieving data!!");
       });
   };
+
   render() {
     const { hospitals, posts } = this.state;
-    const hospitallist = hospitals.length ? (
-      hospitals.map((item) => {
+    let alldoctorjson = [
+      {
+        _id: "alldoctor",
+        hospitalcode: "AllDoctors",
+        hospitalname: "All Doctors",
+      },
+    ];
+
+    alldoctorjson = alldoctorjson.concat([...hospitals]);
+    //  hospitals = [...alldoctorjson];
+    const hospitallist = alldoctorjson.length ? (
+      alldoctorjson.map((item) => {
         return (
           <option key={item._id} value={item.hospitalcode}>
             {item.hospitalname}
@@ -145,13 +205,18 @@ class Alldoctors extends React.Component {
     }
     return (
       <div className="dashboard_wrap">
-        <select
-          id="hospital"
-          className="ChooseDoctor"
-          onChange={this.handleOnChange}
-        >
-          {hospitallist}
-        </select>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {" "}
+          <select
+            id="hospital"
+            className="ChooseDoctor"
+            onChange={this.handleOnChange}
+          >
+            {hospitallist}
+          </select>
+          {/* <div className="ChooseDoctor">All Doctor's</div> */}
+        </div>
+
         <div className="flex-container">
           {/* {this.state.hospitalcode} */}
 

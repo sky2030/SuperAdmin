@@ -26,7 +26,7 @@ class AllHospital extends Component {
 
   getHospital = () => {
     axios
-      .get("http://localhost:4300/v1/admin/hospitals/", {
+      .get("https://stage.mconnecthealth.com/v1/admin/hospitals/", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

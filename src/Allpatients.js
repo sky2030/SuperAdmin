@@ -27,7 +27,7 @@ class AllPatients extends React.Component {
 
   GetPatients = () => {
     axios
-      .get("http://localhost:4300/v1/admin/patients/", {
+      .get("https://stage.mconnecthealth.com/v1/admin/patients/", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -45,7 +45,7 @@ class AllPatients extends React.Component {
 
   getHospital = () => {
     axios
-      .get("http://localhost:4300/v1/admin/hospitals/", {
+      .get("https://stage.mconnecthealth.com/v1/admin/hospitals/", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -80,14 +80,22 @@ class AllPatients extends React.Component {
         return (
           <div className="allpatients" key={post._id}>
             <div className="patientsinvoice">
-              <p>
+              {/* <p>
                 <b>Mobile No- </b> {post.mobile}
               </p>
-              <h3>25 JUNE 2020</h3>
+              <p>
+                <b>Patient Name- </b> {post.patient_name}
+              </p> */}
             </div>
 
             <div className="alltransation">
-              <div>
+              <p style={{ marginLeft: "2em" }}>
+                <b>Mobile No- </b> {post.mobile}
+              </p>
+              <p style={{ marginLeft: "2em" }}>
+                <b>Patient Name- </b> {post.patient_name}
+              </p>
+              {/* <div>
                 <p>
                   <b>Patient Name</b>
                 </p>
@@ -113,7 +121,7 @@ class AllPatients extends React.Component {
                   <b>Amount</b>
                 </p>
                 <p>Rs. 2000</p>
-              </div>
+              </div> */}
             </div>
           </div>
         );
@@ -124,13 +132,13 @@ class AllPatients extends React.Component {
 
     return (
       <div className="dashboard_wrap">
-        <select
+        {/* <select
           id="hospital"
           className="ChooseDoctor"
           onChange={this.handleOnChange}
         >
           {hospitallist}
-        </select>
+        </select> */}
         <div className="headerNew">
           {/* {this.state.hospitalcode} */}
           {postList}
