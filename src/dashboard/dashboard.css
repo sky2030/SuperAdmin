@@ -4,8 +4,36 @@
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
 }
+.App {
+  text-align: center;
+  width: 100vw;
+}
+.Appcontainer {
+  width: 100vw;
+}
 h5 {
   text-align: left;
+}
+
+img.vert-move {
+  -webkit-animation: mover 1s infinite alternate;
+  animation: mover 1s infinite alternate;
+}
+@-webkit-keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10vh);
+  }
+}
+@keyframes mover {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10vh);
+  }
 }
 
 Footer {
@@ -131,6 +159,11 @@ ul.dlist li i {
   padding-right: 10px;
   vertical-align: middle;
 }
+.transdoctor {
+  color: #0669b9;
+  font-weight: bold;
+  border-width: 0px;
+}
 footer p {
   font-size: 13px;
   text-align: center;
@@ -218,6 +251,25 @@ header ul li a i {
     rgba(238, 238, 238, 1) 0%,
     rgba(215, 230, 246, 1) 100%
   );
+  text-align: center;
+}
+
+.transactioncard {
+  width: 95%;
+  margin: 10px auto 60px auto;
+  background: rgb(238, 238, 238);
+  background: radial-gradient(
+    circle,
+    rgba(238, 238, 238, 1) 0%,
+    rgba(215, 230, 246, 1) 100%
+  );
+  text-align: center;
+}
+.transactioncard h2 {
+  background-color: rgb(46 82 147);
+  color: #fff;
+  font-size: 20px;
+  padding: 5px;
   text-align: center;
 }
 .updatehosp {
@@ -424,7 +476,7 @@ form {
 }
 .flex-container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;
   margin-top: 1rem;
@@ -464,11 +516,15 @@ form {
     #004e92,
     #000428
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 87vh;
-  display: flex;
+  height: 96vh;
+  /* display: flex; */
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+.splash-logo {
+  height: 55vmin;
+  pointer-events: none;
 }
 .doctor-card {
   margin: 15px;
@@ -480,10 +536,7 @@ form {
   flex-direction: row;
   display: flex;
 }
-.splash-logo {
-  height: 50vmin;
-  pointer-events: none;
-}
+
 .doctor-card h3 {
   background-color: rgb(6, 105, 185);
   padding: 5px 10px;
@@ -623,7 +676,7 @@ form {
 .alltransation {
   display: flex;
   background-color: #ffff;
-  margin: 10px;
+  margin: 4px;
   border-radius: 10px;
   box-shadow: 5px 2px 6px #ccc;
 }

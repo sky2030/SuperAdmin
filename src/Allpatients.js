@@ -2,11 +2,16 @@ import React from "react";
 //import ReactDOM from 'react-dom';
 import "./dashboard/dashboard.css";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import Nav from "./Nav";
+//import Spinner from "./img/Spinner.gif";
+//import Spinner from "./img/Magnify.gif";
+import Spinner from "./img/Spinnergrey.gif";
 
 class AllPatients extends React.Component {
   constructor(props) {
     super(props);
-    //const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
 
     this.state = {
       posts: [],
@@ -95,53 +100,42 @@ class AllPatients extends React.Component {
               <p style={{ marginLeft: "2em" }}>
                 <b>Patient Name- </b> {post.patient_name}
               </p>
-              {/* <div>
-                <p>
-                  <b>Patient Name</b>
-                </p>
-                <p>{post.patient_name}</p>
-              </div>
-
-              <div>
-                <p>
-                  <b>Doctor Name</b>
-                </p>
-                <p>Dr.Rahul Kumar</p>
-              </div>
-
-              <div>
-                <p>
-                  <b>Symptom</b>
-                </p>
-                <p>Fever and Cough</p>
-              </div>
-
-              <div>
-                <p>
-                  <b>Amount</b>
-                </p>
-                <p>Rs. 2000</p>
-              </div> */}
             </div>
           </div>
         );
       })
     ) : (
-      <div className="center">No posts to show</div>
+      <div
+        className="center"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "150px",
+          marginBottom: "100px",
+        }}
+      >
+        <img src={Spinner} alt="Loading" />
+      </div>
     );
+    if (this.state.loggedIn === false) {
+      return <Redirect to="/splash" />;
+    }
 
     return (
-      <div className="dashboard_wrap">
-        {/* <select
+      <div className="Appcontainer">
+        <Nav />
+        <div className="dashboard_wrap">
+          {/* <select
           id="hospital"
           className="ChooseDoctor"
           onChange={this.handleOnChange}
         >
           {hospitallist}
         </select> */}
-        <div className="headerNew">
-          {/* {this.state.hospitalcode} */}
-          {postList}
+          <div className="headerNew">
+            {/* {this.state.hospitalcode} */}
+            {postList}
+          </div>
         </div>
       </div>
     );

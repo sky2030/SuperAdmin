@@ -4,6 +4,10 @@ import "./dashboard/dashboard.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import Nav from "./Nav";
+//import Spinner from "./img/Spinner.gif";
+import Spinner from "./img/Spinnergrey.gif";
+//import Spinner from "./img/Magnify.gif";
 
 class AllHospital extends Component {
   //const Allhospitals = (props) => {
@@ -71,19 +75,32 @@ class AllHospital extends Component {
         );
       })
     ) : (
-      <div className="center">No posts to show</div>
+      <div
+        className="center"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "150px",
+          marginBottom: "100px",
+        }}
+      >
+        <img src={Spinner} alt="Loading" />
+      </div>
     );
 
     if (this.state.loggedIn === false) {
       return <Redirect to="/splash" />;
     }
     return (
-      <div className="dashboard_wrap">
-        <div className="flex-container">{postList}</div>
-        <div className="add_departmet">
-          <Link to="/Addhospital">
-            <i className="fas fa-plus"></i> Add Hospital{" "}
-          </Link>
+      <div className="Appcontainer">
+        <Nav />
+        <div className="dashboard_wrap">
+          <div className="flex-container">{postList}</div>
+          <div className="add_departmet">
+            <Link to="/Addhospital">
+              <i className="fas fa-plus"></i> Add Hospital{" "}
+            </Link>
+          </div>
         </div>
       </div>
     );

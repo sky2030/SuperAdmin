@@ -1,6 +1,6 @@
 import React from "react";
 import "./Global";
-import Nav from "./Nav";
+//import Nav from "./Nav";
 import Footer from "./Footer";
 import Myhospital from "./Myhospital";
 
@@ -13,17 +13,17 @@ import Allpatients from "./Allpatients";
 import Splash from "./Splash";
 
 import Addhospital from "./Addhospital";
+import Transaction from './Transaction'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Nav />
+        {/* <Nav /> */}
         <Switch>
           <Route path="/" exact component={Splash} />
           <Route path="/Dashboard" component={Dashboard} />
-
           <Route path="/Alldoctors" component={Alldoctors} />
           <Route path="/Allhospitals" component={Allhospitals} />
           <Route path="/Contact" component={Contact} />
@@ -32,6 +32,7 @@ function App() {
           <Route path="/Allpatients" component={Allpatients} />
           <Route path="/Splash" component={Splash} />
           <Route path="/Myhospital/:id" component={Myhospital} />
+          <Route path="/Transaction" component={Transaction} />
         </Switch>
       </div>
       <Footer />

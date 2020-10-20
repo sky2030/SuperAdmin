@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "./static/css/main.02b8f9f2.chunk.css",
+    "main.js": "./static/js/main.43709f76.chunk.js",
+    "main.js.map": "./static/js/main.43709f76.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.5c471187.js",
+    "runtime-main.js.map": "./static/js/runtime-main.5c471187.js.map",
+    "static/js/2.5fda55e4.chunk.js": "./static/js/2.5fda55e4.chunk.js",
+    "static/js/2.5fda55e4.chunk.js.map": "./static/js/2.5fda55e4.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.6bbedee215e5317a9876259850f3c051.js": "./precache-manifest.6bbedee215e5317a9876259850f3c051.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.02b8f9f2.chunk.css.map": "./static/css/main.02b8f9f2.chunk.css.map",
+    "static/js/2.5fda55e4.chunk.js.LICENSE.txt": "./static/js/2.5fda55e4.chunk.js.LICENSE.txt",
+    "static/media/Smhs_Logo.png": "./static/media/Smhs_Logo.3548071b.png",
+    "static/media/bgimg.jpg": "./static/media/bgimg.b23fd27c.jpg",
+    "static/media/contact2.jpg": "./static/media/contact2.2c96e45b.jpg",
+    "static/media/doctor-icon.jpg": "./static/media/doctor-icon.665e37bd.jpg",
+    "static/media/doctor.png": "./static/media/doctor.ac91bd79.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5c471187.js",
+    "static/js/2.5fda55e4.chunk.js",
+    "static/css/main.02b8f9f2.chunk.css",
+    "static/js/main.43709f76.chunk.js"
+  ]
+}

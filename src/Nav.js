@@ -14,9 +14,9 @@ class Nav extends React.Component {
                     </div>
                     <ul>
                         <li><Link to='/Dashboard'><i className="fas fa-home"></i>Dashboard</Link></li>
-                        <li><Link to='/Allhospitals'><i className="far fa-hospital"></i>All Hospitals</Link></li>
-                        <li><Link to='/Alldoctors'><i className="fas fa-user-md"></i>All Doctors</Link></li>
-                        <li><Link to='/AllPatients'><i className="fas fa-procedures"></i>All Patients</Link></li>
+                        <li><Link to='/Allhospitals'><i className="far fa-hospital"></i>Hospitals</Link></li>
+                        <li><Link to='/Alldoctors'><i className="fas fa-user-md"></i>Doctors</Link></li>
+                        <li><Link to='/AllPatients'><i className="fas fa-procedures"></i>Patients</Link></li>
                         <li><Link to='/Contact'><i className="fas fa-phone-alt"></i>Contact</Link></li>
                         {/* <li><Link to='/Login'><i className="fas fa-user-lock"></i>Login</Link></li> */}
                         <li><Link to='/splash'><i className="fas fa-user-lock"></i>logout</Link></li>

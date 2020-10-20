@@ -5,6 +5,7 @@ import "./dashboard/dashboard.css";
 //import maxhosp from './img/maxhospital.jpg';
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import Nav from "./Nav";
 
 class Myhospital extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class Myhospital extends React.Component {
     axios
       .get(
         "https://stage.mconnecthealth.com/v1/admin/hospitals/" +
-          this.props.match.params.id,
+        this.props.match.params.id,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -56,67 +57,70 @@ class Myhospital extends React.Component {
       return <Redirect to="/splash" />;
     }
     return (
-      <div className="dashboard_wrap1">
-        <Link to="/Allhospitals" className="backbtn">
-          Back
+      <div className='Appcontainer'>
+        <Nav />
+        <div className="dashboard_wrap1">
+          <Link to="/Allhospitals" className="backbtn">
+            Back
         </Link>
-        <div className="headeralign">
-          <div className="banner-text">
-            <img
-              style={{
-                width: "100%",
-                height: "50vh",
-                borderRadius: "2rem",
-                marginTop: "1.5rem",
-              }}
-              // className="imgclassName"
-              src={hospitals.picture}
-              alt="hospital_img"
-            />
-          </div>
-          <div className="flex-container scroll" key={hospitals.code}>
-            <div className="col5 box-shad">
-              <h3>
-                {hospitals.hospitalname} {hospitals.code}
-              </h3>
-              <p>
-                <i className="far fa-envelope"></i> {hospitals.email}
-              </p>
-              <p>
-                <i className="fas fa-phone-alt"></i>
-                {hospitals.phone}
-              </p>
-              <p>
-                <i className="fas fa-phone-alt"></i>
-                {hospitals.EmergencyNo}
-              </p>
+          <div className="headeralign">
+            <div className="banner-text">
+              <img
+                style={{
+                  width: "100%",
+                  height: "50vh",
+                  borderRadius: "2rem",
+                  marginTop: "1.5rem",
+                }}
+                // className="imgclassName"
+                src={hospitals.picture}
+                alt="hospital_img"
+              />
             </div>
-            <div className="col5 box-shad">
-              <h3>
-                <i className="fas fa-map-marker-alt"></i>Address
+            <div className="flex-container scroll" key={hospitals.code}>
+              <div className="col5 box-shad">
+                <h3>
+                  {hospitals.hospitalname} {hospitals.code}
+                </h3>
+                <p>
+                  <i className="far fa-envelope"></i> {hospitals.email}
+                </p>
+                <p>
+                  <i className="fas fa-phone-alt"></i>
+                  {hospitals.phone}
+                </p>
+                <p>
+                  <i className="fas fa-phone-alt"></i>
+                  {hospitals.EmergencyNo}
+                </p>
+              </div>
+              <div className="col5 box-shad">
+                <h3>
+                  <i className="fas fa-map-marker-alt"></i>Address
               </h3>
-              <p>
-                <b>Place:</b>
-                {hospitals.place}
-              </p>
-              <p>
-                <b>Landmark:</b>
-                {hospitals.landmark}{" "}
-              </p>
-              <p>
-                <b>District:</b> {hospitals.district}
-              </p>
-              <p>
-                <b>State:</b> {hospitals.state} <b>Pin Code:</b>{" "}
-                {hospitals.pincode}
-              </p>
+                <p>
+                  <b>Place:</b>
+                  {hospitals.place}
+                </p>
+                <p>
+                  <b>Landmark:</b>
+                  {hospitals.landmark}{" "}
+                </p>
+                <p>
+                  <b>District:</b> {hospitals.district}
+                </p>
+                <p>
+                  <b>State:</b> {hospitals.state} <b>Pin Code:</b>{" "}
+                  {hospitals.pincode}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* <div className="add_departmet">
+          {/* <div className="add_departmet">
           <Link to='/Addhospital'> <i className="fas fa-plus"></i> Add Hospital </Link>
         </div> */}
+        </div>
       </div>
     );
   }

@@ -3,6 +3,7 @@ import React from "react";
 import "./dashboard/dashboard.css";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import logo from "./img/logo.png";
 
 class Login extends React.Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class Login extends React.Component {
     }
     return (
       <section className="login">
+        <img src={logo} alt="logo" />
         <h2>WELCOME TO VRCure!</h2>
         <form autocomplete="off" onSubmit={this.submitForm}>
           <div className="loginbox">
@@ -112,9 +114,8 @@ class Login extends React.Component {
               Forgot Password ?
             </a>
           </div>
-          <div style={{ marginLeft: "4em" }}>
-            <input type="submit" className="button" />
-            {/* <button id="submit">Login</button> */}
+          <div>
+            <button id="submit">Login</button>
           </div>
         </form>
       </section>
