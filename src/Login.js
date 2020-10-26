@@ -19,6 +19,8 @@ class Login extends React.Component {
       password: "",
       token: "",
       LoggedIn,
+      usernameError: "",
+      passwordError: ""
     };
   }
 
@@ -64,19 +66,21 @@ class Login extends React.Component {
         data: payload,
       })
         .then((response) => {
-          const data = response.data.data.token;
-          // console.log(response.data.token)
-          try {
+          if (response.data.code == 200) {
+            const data = response.data.data.token;
             localStorage.setItem("token", data);
             this.setState({
               token: localStorage.getItem("token"),
             });
-          } catch (e) {
-            console.log("Something went wrong with sky's Code", e);
+
+          } else {
+            alert(response.data.message)
+            console.log(response.data.message);
           }
         })
-        .catch(() => {
-          console.log("internal server error");
+        .catch((Error) => {
+          alert("Invalid User Name Or Password")
+          console.log(Error + " internal server error");
         });
     }
   };
@@ -91,25 +95,35 @@ class Login extends React.Component {
         <form autocomplete="off" onSubmit={this.submitForm}>
           <div className="loginbox">
             <i className="fas fa-user"></i>
-            <input
-              placeholder="Your User Name"
-              type="text"
-              id="User name"
-              name="username"
-              value={this.state.username}
-              onChange={this.onChange}
-            ></input>
+            <div>
+              <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.usernameError}
+              </div>
+              <input
+                placeholder="Your User Name"
+                type="text"
+                id="User name"
+                name="username"
+                value={this.state.username}
+                onChange={this.onChange}
+              ></input>
+            </div>
           </div>
           <div className="loginbox">
             <i className="fas fa-lock"></i>
-            <input
-              placeholder="Your Password"
-              type="password"
-              id="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onChange}
-            ></input>
+            <div>
+              <div style={{ fontSize: 12, color: "red" }}>
+                {this.state.passwordError}
+              </div>
+              <input
+                placeholder="Your Password"
+                type="password"
+                id="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.onChange}
+              ></input>
+            </div>
             <a href="confirm" className="forgotpass">
               Forgot Password ?
             </a>

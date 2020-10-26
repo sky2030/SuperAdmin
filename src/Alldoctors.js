@@ -9,6 +9,8 @@ import Nav from "./Nav";
 //import Spinner from "./img/Spinner.gif";
 //import Spinner from "./img/Magnify.gif";
 import Spinner from "./img/Spinnergrey.gif";
+import Pagination from "react-js-pagination";
+//import("bootstrap/less/bootstrap.less");
 
 class Alldoctors extends React.Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class Alldoctors extends React.Component {
       alldoctors: [],
       hospitals: [],
       hospitalcode: "",
+      activePage: 6
     };
   }
 
@@ -33,6 +36,8 @@ class Alldoctors extends React.Component {
     this.setState({
       hospitalcode: e.target.value,
     });
+
+
 
     console.log("this is hospital code : ", e.target.value);
     let dup_post = [...this.state.alldoctors];
@@ -55,6 +60,13 @@ class Alldoctors extends React.Component {
       posts: dup_post,
     });
   };
+
+  handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
+  }
+
+
 
   fetchAll = () => {
     //console.log(`this is hospital code ${this.state.hospitalcode}`);
@@ -123,8 +135,8 @@ class Alldoctors extends React.Component {
         );
       })
     ) : (
-      <div className="center">No Doctor</div>
-    );
+        <div className="center">No Doctor</div>
+      );
 
     const postList = posts.length ? (
       posts.map((post) => {
@@ -161,18 +173,18 @@ class Alldoctors extends React.Component {
         );
       })
     ) : (
-      <div
-        className="center"
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "150px",
-          marginBottom: "100px",
-        }}
-      >
-        <img src={Spinner} alt="Loading" />
-      </div>
-    );
+        <div
+          className="center"
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "150px",
+            marginBottom: "100px",
+          }}
+        >
+          <img src={Spinner} alt="Loading" />
+        </div>
+      );
 
     if (this.state.loggedIn === false) {
       return <Redirect to="/splash" />;
@@ -197,7 +209,26 @@ class Alldoctors extends React.Component {
             {/* {this.state.hospitalcode} */}
 
             {postList}
-          </div>
+          </div >
+          {/* <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignContent: 'center'
+          }}>
+            <Pagination
+              hideDisabled
+              firstPageText={<i className='glyphicon glyphicon-chevron-left' />}
+              lastPageText={<i className='glyphicon glyphicon-chevron-right' />}
+              prevPageText={<i className='glyphicon glyphicon-menu-left' />}
+              nextPageText={<i className='glyphicon glyphicon-menu-right' />}
+              activePage={this.state.activePage}
+              itemsCountPerPage={5}
+              totalItemsCount={10}
+              pageRangeDisplayed={5}
+              onChange={this.handlePageChange}
+
+            /></div> */}
         </div>
       </div>
     );

@@ -89,9 +89,9 @@ class Myhospital extends React.Component {
                   <i className="fas fa-phone-alt"></i>
                   {hospitals.phone}
                 </p>
-                <p>
+                <p style={{ color: 'red' }}>
                   <i className="fas fa-phone-alt"></i>
-                  {hospitals.EmergencyNo}
+                  {hospitals.emergencyNo}
                 </p>
               </div>
               <div className="col5 box-shad">
