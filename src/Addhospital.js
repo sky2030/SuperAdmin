@@ -32,6 +32,7 @@ const initialState = {
   pinError: "",
   selectedFile: null,
   submitted: false,
+  loggedIn: true
 };
 
 class Addhospital extends React.Component {
@@ -156,14 +157,30 @@ class Addhospital extends React.Component {
             console.log("Data has been sent to the server successfully");
           } else {
             console.log(response.message);
+            alert(response.data.message)
           }
           this.resetUserInputs();
           this.setState({
             submitted: true,
           });
         })
-        .catch(() => {
-          console.log("internal server error");
+        .catch((Error) => {
+          if (Error.message === "Network Error") {
+            alert("Please Check your Internet Connection")
+            console.log(Error.message)
+            return;
+          }
+          if (Error.response.data.code === 403) {
+            alert(Error.response.data.message)
+            console.log(JSON.stringify("Error 403: " + Error.response.data.message))
+            this.setState({
+              loggedIn: false
+            })
+
+          }
+          else {
+            alert("Something Went Wrong")
+          }
         });
     }
   };
@@ -208,8 +225,23 @@ class Addhospital extends React.Component {
             submitted: true,
           });
         })
-        .catch(() => {
-          console.log("internal server error");
+        .catch((Error) => {
+          if (Error.message === "Network Error") {
+            alert("Please Check your Internet Connection")
+            console.log(Error.message)
+            return;
+          }
+          if (Error.response.data.code === 403) {
+            alert(Error.response.data.message)
+            console.log(JSON.stringify("Error 403: " + Error.response.data.message))
+            this.setState({
+              loggedIn: false
+            })
+
+          }
+          else {
+            alert("Something Went Wrong")
+          }
         });
     }
   };
@@ -288,8 +320,8 @@ class Addhospital extends React.Component {
         });
         console.log(this.state.picture);
       })
-      .catch((err) => {
-        console.log("error while uploading" + err);
+      .catch((Error) => {
+        alert(Error)
       });
   };
 
@@ -298,6 +330,9 @@ class Addhospital extends React.Component {
   };
 
   render() {
+    if (this.state.loggedIn === false) {
+      return <Redirect to="/" />;
+    }
     if (this.state.submitted) {
       return <Redirect to="/Allhospitals" />;
     }
@@ -459,14 +494,16 @@ class Addhospital extends React.Component {
               </label>
             </div>
             <div className="btncontainer">
-              <button onClick={this.handleUpload}>
+              {/* <button onClick={this.handleUpload}>
                 <i className="fas fa-upload"></i>Upload Image{" "}
-              </button>
+              </button> */}
               <button type="submit">
                 <i className="far fa-paper-plane"></i>Submit
               </button>
               <button onClick={this.resetUserInputs}>
-                <i className="fas fa-power-off"></i>Reset
+                <i className="fas fa-power-off">
+                </i>
+                  Reset
               </button>
             </div>
           </form>

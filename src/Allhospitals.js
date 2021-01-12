@@ -37,12 +37,32 @@ class AllHospital extends Component {
       })
       .then((response) => {
         console.log(response);
-        const data = response.data.data;
-        this.setState({ posts: data });
-        console.log("Data has been received!!");
+        if (response.data.code == 200) {
+          const data = response.data.data;
+          this.setState({ posts: data });
+          console.log("Data has been received!!");
+        } else {
+          alert(response.data.message)
+        }
       })
-      .catch(() => {
-        alert("Error retrieving data!!");
+      .catch((Error) => {
+        if (Error.message === "Network Error") {
+          alert("Please Check your Internet Connection")
+          console.log(Error.message)
+          return;
+        }
+        if (Error.response.data.code === 403) {
+          alert(Error.response.data.message)
+          console.log(JSON.stringify("Error 403: " + Error.response.data.message))
+          this.setState({
+            loggedIn: false
+          })
+
+        }
+        else {
+          alert("Something Went Wrong")
+        }
+
       });
   };
   render() {
@@ -52,7 +72,7 @@ class AllHospital extends Component {
         return (
           <Link
             to={"/Myhospital/" + post.hospitalcode}
-            className="hospital-card col bg_white"
+            className="hospital-card"
           >
             <h3>{post.hospitalname}</h3>
             <div className="doctor-card1">
@@ -75,32 +95,33 @@ class AllHospital extends Component {
         );
       })
     ) : (
-      <div
-        className="center"
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "150px",
-          marginBottom: "100px",
-        }}
-      >
-        <img src={Spinner} alt="Loading" />
-      </div>
-    );
+        <div
+          className="center"
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "150px",
+            marginBottom: "100px",
+          }}
+        >
+          <img src={Spinner} alt="Loading" />
+        </div>
+      );
 
     if (this.state.loggedIn === false) {
-      return <Redirect to="/splash" />;
+      return <Redirect to="/" />;
     }
     return (
       <div className="Appcontainer">
         <Nav />
         <div className="dashboard_wrap">
           <div className="flex-container">{postList}</div>
-          <div className="add_departmet">
-            <Link to="/Addhospital">
-              <i className="fas fa-plus"></i> Add Hospital{" "}
-            </Link>
-          </div>
+
+        </div>
+        <div className="add_departmet">
+          <Link to="/Addhospital">
+            <i className="fas fa-plus"></i> Add Hospital{" "}
+          </Link>
         </div>
       </div>
     );

@@ -9,8 +9,9 @@ import Nav from "./Nav";
 //import Spinner from "./img/Spinner.gif";
 //import Spinner from "./img/Magnify.gif";
 import Spinner from "./img/Spinnergrey.gif";
-import Pagination from "react-js-pagination";
+//import Pagination from "react-js-pagination";
 //import("bootstrap/less/bootstrap.less");
+import pagination from './pagination'
 
 class Alldoctors extends React.Component {
   constructor(props) {
@@ -85,8 +86,23 @@ class Alldoctors extends React.Component {
         this.setState({ alldoctors: data });
         console.log("Data has been received!!");
       })
-      .catch(() => {
-        alert("Error retrieving data!!");
+      .catch((Error) => {
+        if (Error.message === "Network Error") {
+          alert("Please Check your Internet Connection")
+          console.log(Error.message)
+          return;
+        }
+        if (Error.response.data.code === 403) {
+          alert(Error.response.data.message)
+          console.log(JSON.stringify("Error 403: " + Error.response.data.message))
+          this.setState({
+            loggedIn: false
+          })
+
+        }
+        else {
+          alert("Something Went Wrong")
+        }
       });
   };
 
@@ -105,12 +121,31 @@ class Alldoctors extends React.Component {
       })
       .then((response) => {
         console.log(response);
-        const data = response.data.data;
-        this.setState({ hospitals: data });
+        if (response.data.code == 200) {
+          const data = response.data.data;
+          this.setState({ hospitals: data });
+        } else {
+          alert(response.data.message)
+        }
         console.log("Data has been received!!");
       })
-      .catch(() => {
-        alert("Error retrieving data!!");
+      .catch((Error) => {
+        if (Error.message === "Network Error") {
+          alert("Please Check your Internet Connection")
+          console.log(Error.message)
+          return;
+        }
+        if (Error.response.data.code === 403) {
+          alert(Error.response.data.message)
+          console.log(JSON.stringify("Error 403: " + Error.response.data.message))
+          this.setState({
+            loggedIn: false
+          })
+
+        }
+        else {
+          alert("Something Went Wrong")
+        }
       });
   };
 
@@ -141,7 +176,7 @@ class Alldoctors extends React.Component {
     const postList = posts.length ? (
       posts.map((post) => {
         return (
-          <div key={post._id} className="doctor-card col">
+          <div key={post._id} className="doctor-card">
             {/* <Link to={'/Doctorprofile/' + post._id}> */}
             <h3 style={{ color: "white" }}>
               Dr. {post.first_name} {post.last_name}
@@ -169,6 +204,7 @@ class Alldoctors extends React.Component {
               </div>
             </div>
             {/* </Link> */}
+            {/* <pagination /> */}
           </div>
         );
       })
@@ -187,7 +223,7 @@ class Alldoctors extends React.Component {
       );
 
     if (this.state.loggedIn === false) {
-      return <Redirect to="/splash" />;
+      return <Redirect to="/" />;
     }
     return (
       <div className="Appcontainer">
@@ -202,13 +238,14 @@ class Alldoctors extends React.Component {
             >
               {hospitallist}
             </select>
-            {/* <div className="ChooseDoctor">All Doctor's</div> */}
+
           </div>
 
           <div className="flex-container">
             {/* {this.state.hospitalcode} */}
 
             {postList}
+
           </div >
           {/* <div style={{
             display: 'flex',
@@ -217,18 +254,14 @@ class Alldoctors extends React.Component {
             alignContent: 'center'
           }}>
             <Pagination
-              hideDisabled
-              firstPageText={<i className='glyphicon glyphicon-chevron-left' />}
-              lastPageText={<i className='glyphicon glyphicon-chevron-right' />}
-              prevPageText={<i className='glyphicon glyphicon-menu-left' />}
-              nextPageText={<i className='glyphicon glyphicon-menu-right' />}
               activePage={this.state.activePage}
-              itemsCountPerPage={5}
-              totalItemsCount={10}
+              itemsCountPerPage={10}
+              totalItemsCount={450}
               pageRangeDisplayed={5}
-              onChange={this.handlePageChange}
-
+              onChange={this.handlePageChange.bind(this)}
             /></div> */}
+
+
         </div>
       </div>
     );

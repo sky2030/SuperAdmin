@@ -2,7 +2,7 @@ import React from "react";
 //import ReactDOM from 'react-dom';
 import "./dashboard/dashboard.css";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import logo from "./img/logo.png";
 
 class Login extends React.Component {
@@ -15,6 +15,7 @@ class Login extends React.Component {
       LoggedIn = false;
     }
     this.state = {
+      hidden: true,
       username: "",
       password: "",
       token: "",
@@ -66,24 +67,41 @@ class Login extends React.Component {
         data: payload,
       })
         .then((response) => {
-          if (response.data.code == 200) {
+          console.log(JSON.stringify(response))
+          if (response.status == 200) {
             const data = response.data.data.token;
             localStorage.setItem("token", data);
             this.setState({
               token: localStorage.getItem("token"),
             });
 
-          } else {
+          }
+          else {
             alert(response.data.message)
             console.log(response.data.message);
           }
         })
         .catch((Error) => {
-          alert("Invalid User Name Or Password")
-          console.log(Error + " internal server error");
+          if (Error.message === "Network Error") {
+            alert("Please Check your Internet Connection")
+            console.log(Error.message)
+            return;
+          }
+          if (Error.response.data.code === 401) {
+            alert(Error.response.data.message)
+            console.log(JSON.stringify("Error 401: " + Error.response.data.message))
+          }
+          else {
+            alert("Something Went Wrong")
+          }
         });
     }
   };
+
+  toggleShow = () => {
+    this.setState({ hidden: !this.state.hidden });
+  }
+
   render() {
     if (this.state.token !== "") {
       return <Redirect to="/Dashboard" />;
@@ -96,9 +114,7 @@ class Login extends React.Component {
           <div className="loginbox">
             <i className="fas fa-user"></i>
             <div>
-              <div style={{ fontSize: 12, color: "red" }}>
-                {this.state.usernameError}
-              </div>
+
               <input
                 placeholder="Your User Name"
                 type="text"
@@ -108,25 +124,39 @@ class Login extends React.Component {
                 onChange={this.onChange}
               ></input>
             </div>
+            <div style={{ fontSize: 12, color: "red" }}>
+              {this.state.usernameError}
+            </div>
           </div>
           <div className="loginbox">
             <i className="fas fa-lock"></i>
             <div>
+
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <input
+                  placeholder="Your Password"
+                  //type="password"
+                  type={this.state.hidden ? 'password' : 'text'}
+                  id="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                ></input>
+                <p onClick={this.toggleShow}>
+                  {this.state.hidden ? <i class="fas fa-eye-slash"></i> : <i class="fas fa-eye"></i>}
+                </p>
+              </div>
               <div style={{ fontSize: 12, color: "red" }}>
                 {this.state.passwordError}
               </div>
-              <input
-                placeholder="Your Password"
-                type="password"
-                id="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChange}
-              ></input>
+
             </div>
-            <a href="confirm" className="forgotpass">
-              Forgot Password ?
+
+            {/* <Link to='/ForgetPassword'>
+              <a href="confirm" className="forgotpass">
+                Forgot Password ?
             </a>
+            </Link> */}
           </div>
           <div>
             <button id="submit">Login</button>

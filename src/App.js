@@ -3,7 +3,6 @@ import "./Global";
 //import Nav from "./Nav";
 import Footer from "./Footer";
 import Myhospital from "./Myhospital";
-
 import Alldoctors from "./Alldoctors";
 import Dashboard from "./dashboard/Dashboard";
 import Allhospitals from "./Allhospitals";
@@ -11,9 +10,10 @@ import Contact from "./Contact";
 import Login from "./Login";
 import Allpatients from "./Allpatients";
 import Splash from "./Splash";
-
+import pagination from './pagination'
 import Addhospital from "./Addhospital";
 import Transaction from './Transaction'
+import ForgetPassword from './ForgetPassword'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -33,6 +33,8 @@ function App() {
           <Route path="/Splash" component={Splash} />
           <Route path="/Myhospital/:id" component={Myhospital} />
           <Route path="/Transaction" component={Transaction} />
+          <Route path="/pagination" component={pagination} />
+          <Route path="/ForgetPassword" component={ForgetPassword} />
         </Switch>
       </div>
       <Footer />
